@@ -11,7 +11,7 @@ A Claude Code plugin for structured feature development with continuous improvem
 # 2. Restart Claude Code to load the plugin
 
 # 3. Start using skills
-/generate-spec my new feature
+/skillz:generate-spec my new feature
 ```
 
 ## Installation
@@ -30,27 +30,27 @@ claude --plugin-dir /path/to/skillz
 ## Workflow
 
 ```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  /generate-spec │ ──▶ │   /implement    │ ──▶ │    /commit      │
-│                 │     │                 │     │                 │
-│  Create spec +  │     │  Execute plan,  │     │  Stage, commit, │
-│  impl plans     │     │  run tests      │     │  push           │
-└─────────────────┘     └─────────────────┘     └─────────────────┘
-                               │
-                               ▼ (if context fills)
-                        ┌─────────────────┐     ┌─────────────────┐
-                        │    /handoff     │ ──▶ │    /resume      │
-                        │                 │     │                 │
-                        │  Save context   │     │  Continue work  │
-                        └─────────────────┘     └─────────────────┘
-                               │
-                               ▼ (captures learnings)
-                        ┌─────────────────┐
-                        │  /self-improve  │
-                        │                 │
-                        │  Create skills, │
-                        │  scripts, docs  │
-                        └─────────────────┘
+┌───────────────────────┐     ┌───────────────────┐     ┌─────────────────────┐
+│ /skillz:generate-spec │ ──▶ │ /skillz:implement │ ──▶ │   /skillz:commit    │
+│                       │     │                   │     │                     │
+│  Create spec +        │     │  Execute plan,    │     │  Stage, commit,     │
+│  impl plans           │     │  run tests        │     │  push               │
+└───────────────────────┘     └───────────────────┘     └─────────────────────┘
+                                       │
+                                       ▼ (if context fills)
+                              ┌───────────────────┐     ┌─────────────────────┐
+                              │  /skillz:handoff  │ ──▶ │   /skillz:resume    │
+                              │                   │     │                     │
+                              │  Save context     │     │  Continue work      │
+                              └───────────────────┘     └─────────────────────┘
+                                       │
+                                       ▼ (captures learnings)
+                              ┌───────────────────────┐
+                              │  /skillz:self-improve │
+                              │                       │
+                              │  Create skills,       │
+                              │  scripts, docs        │
+                              └───────────────────────┘
 ```
 
 ## Skills
@@ -59,28 +59,28 @@ claude --plugin-dir /path/to/skillz
 
 | Skill | Usage | Purpose |
 |-------|-------|---------|
-| `/generate-spec` | `/generate-spec user auth with OAuth` | Interview → spec + implementation plans |
-| `/map` | `/map ./src` | Create MAP.md files for codebase navigation |
+| `/skillz:generate-spec` | `/skillz:generate-spec user auth with OAuth` | Interview → spec + implementation plans |
+| `/skillz:map` | `/skillz:map ./src` | Create MAP.md files for codebase navigation |
 
 ### Implementation
 
 | Skill | Usage | Purpose |
 |-------|-------|---------|
-| `/implement` | `/implement docs/plans/auth-db.md` | Execute plan tasks, run tests, commit |
-| `/commit` | `/commit` or `/commit --map` | Stage, commit, push with conventional messages |
+| `/skillz:implement` | `/skillz:implement docs/plans/auth-db.md` | Execute plan tasks, run tests, commit |
+| `/skillz:commit` | `/skillz:commit` or `/skillz:commit --map` | Stage, commit, push with conventional messages |
 
 ### Session Management
 
 | Skill | Usage | Purpose |
 |-------|-------|---------|
-| `/handoff` | `/handoff` | Save context for next session |
-| `/resume` | `/resume docs/handoffs/HANDOFF-...md` | Continue from handoff |
+| `/skillz:handoff` | `/skillz:handoff` | Save context for next session |
+| `/skillz:resume` | `/skillz:resume docs/handoffs/HANDOFF-...md` | Continue from handoff |
 
 ### Continuous Improvement
 
 | Skill | Usage | Purpose |
 |-------|-------|---------|
-| `/self-improve` | `/self-improve` | Review learnings, create skills/scripts/docs |
+| `/skillz:self-improve` | `/skillz:self-improve` | Review learnings, create skills/scripts/docs |
 
 ## Project Structure
 
@@ -99,26 +99,26 @@ your-project/
 
 ```bash
 # 1. Design a feature
-/generate-spec user authentication with OAuth
+/skillz:generate-spec user authentication with OAuth
 
 # 2. Implement the first plan
-/implement docs/plans/user-auth-oauth-db-schema.md --map
+/skillz:implement docs/plans/user-auth-oauth-db-schema.md --map
 
 # 3. If context fills up
-/handoff
+/skillz:handoff
 
 # 4. In a new session
-/resume docs/handoffs/HANDOFF-2026-01-18-auth.md
+/skillz:resume docs/handoffs/HANDOFF-2026-01-18-auth.md
 
 # 5. Periodically improve the system
-/self-improve
+/skillz:self-improve
 ```
 
 ## Key Features
 
 - **Structured workflow** - Specs → Plans → Implementation → Commit
 - **Context management** - Handoff/resume for long tasks
-- **Continuous learning** - Agents capture insights, `/self-improve` acts on them
+- **Continuous learning** - Agents capture insights, `/skillz:self-improve` acts on them
 - **Code maps** - Hierarchical MAP.md for efficient codebase navigation
 - **Auto-validation** - Runs tests/lint before commits
 
