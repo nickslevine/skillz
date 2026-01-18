@@ -14,7 +14,10 @@
       "author": {
         "name": "nlevine"
       },
-      "source": "./",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/nickslevine/skillz.git"
+      },
       "category": "development"
     }
   ]
