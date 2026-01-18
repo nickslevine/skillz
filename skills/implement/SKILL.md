@@ -71,6 +71,16 @@ Use `MAP.md` files for efficient codebase exploration. This minimizes context us
 - Faster orientation (hierarchical overview vs. file-by-file exploration)
 - Better decisions (understand existing patterns before writing code)
 
+**External library documentation:**
+
+If the `context7` skill/tool is available, use it to fetch documentation for external libraries and APIs:
+
+- Use context7 when you need to understand a library's API
+- Use context7 when implementing integrations with external services
+- Use context7 when unsure about correct usage patterns for dependencies
+
+This provides up-to-date documentation without relying on training data.
+
 ### Step 3: Discover Project Checks
 
 Discover what validation is available in this project. Check for:
