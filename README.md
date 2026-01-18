@@ -1,62 +1,131 @@
 # Skillz
 
-A Claude Code plugin with custom agent skills.
+A Claude Code plugin for structured feature development with continuous improvement.
 
 ## Installation
 
-### From GitHub
-
 ```bash
-# Add the marketplace
-/plugin marketplace add nlevine/skillz
+# From GitHub
+/plugin marketplace add nickslevine/skillz
 
-# Install the plugin
-/plugin install skillz@nlevine-skillz
+# Local development
+claude --plugin-dir /path/to/skillz
 ```
 
-### Local Development
+## Workflow
 
-```bash
-claude --plugin-dir /path/to/skillz
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  /generate-spec │ ──▶ │   /implement    │ ──▶ │    /commit      │
+│                 │     │                 │     │                 │
+│  Create spec +  │     │  Execute plan,  │     │  Stage, commit, │
+│  impl plans     │     │  run tests      │     │  push           │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+                               │
+                               ▼ (if context fills)
+                        ┌─────────────────┐     ┌─────────────────┐
+                        │    /handoff     │ ──▶ │    /resume      │
+                        │                 │     │                 │
+                        │  Save context   │     │  Continue work  │
+                        └─────────────────┘     └─────────────────┘
+                               │
+                               ▼ (captures learnings)
+                        ┌─────────────────┐
+                        │  /self-improve  │
+                        │                 │
+                        │  Create skills, │
+                        │  scripts, docs  │
+                        └─────────────────┘
 ```
 
 ## Skills
 
-| Skill | Description |
-|-------|-------------|
-| `generate-spec` | Interview user to create a complete spec (`docs/specs/`) and implementation plans (`docs/plans/`) |
-| `implement` | Execute an implementation plan - works through tasks, runs tests/lints, commits at logical points |
-| `self-improve` | Review learnings and improve the agent system - creates skills, scripts, or documentation |
-| `handoff` | Create a handoff document when running out of context, capturing everything the next agent needs to continue |
-| `resume` | Resume work from a handoff document, restoring context and continuing where the previous session left off |
-| `commit` | Commit and push all changes - handles gitignore, staging, conventional commit messages, and push |
-| `map` | Create hierarchical MAP.md files for codebase exploration - documents folder structure, file purposes, exports, and types |
+### Planning & Specs
+
+| Skill | Usage | Purpose |
+|-------|-------|---------|
+| `/generate-spec` | `/generate-spec user auth with OAuth` | Interview → spec + implementation plans |
+| `/map` | `/map ./src` | Create MAP.md files for codebase navigation |
+
+### Implementation
+
+| Skill | Usage | Purpose |
+|-------|-------|---------|
+| `/implement` | `/implement docs/plans/auth-db.md` | Execute plan tasks, run tests, commit |
+| `/commit` | `/commit` or `/commit --map` | Stage, commit, push with conventional messages |
+
+### Session Management
+
+| Skill | Usage | Purpose |
+|-------|-------|---------|
+| `/handoff` | `/handoff` | Save context for next session |
+| `/resume` | `/resume docs/handoffs/HANDOFF-...md` | Continue from handoff |
+
+### Continuous Improvement
+
+| Skill | Usage | Purpose |
+|-------|-------|---------|
+| `/self-improve` | `/self-improve` | Review learnings, create skills/scripts/docs |
+
+## Project Structure
+
+```
+your-project/
+├── docs/
+│   ├── specs/           # Feature specifications
+│   ├── plans/           # Implementation plans (todo lists)
+│   ├── handoffs/        # Session continuity documents
+│   └── LEARNINGS.md     # Accumulated insights
+├── MAP.md               # Codebase navigation (per folder)
+└── CLAUDE.md            # Project-specific agent instructions
+```
+
+## Example Session
+
+```bash
+# 1. Design a feature
+/generate-spec user authentication with OAuth
+
+# 2. Implement the first plan
+/implement docs/plans/user-auth-oauth-db-schema.md --map
+
+# 3. If context fills up
+/handoff
+
+# 4. In a new session
+/resume docs/handoffs/HANDOFF-2026-01-18-auth.md
+
+# 5. Periodically improve the system
+/self-improve
+```
+
+## Key Features
+
+- **Structured workflow** - Specs → Plans → Implementation → Commit
+- **Context management** - Handoff/resume for long tasks
+- **Continuous learning** - Agents capture insights, `/self-improve` acts on them
+- **Code maps** - Hierarchical MAP.md for efficient codebase navigation
+- **Auto-validation** - Runs tests/lint before commits
 
 ## Creating New Skills
 
-1. Create a new folder under `skills/`:
-   ```
-   skills/my-new-skill/SKILL.md
-   ```
+```
+skills/my-skill/SKILL.md
+```
 
-2. Add frontmatter with `name` and `description`:
-   ```markdown
-   ---
-   name: my-new-skill
-   description: What this skill does and when to use it
-   ---
-   ```
+```markdown
+---
+name: my-skill
+description: When to use this skill
+allowed-tools:
+  - Read
+  - Write
+---
 
-3. Add instructions for Claude below the frontmatter
+# My Skill
 
-4. Test locally:
-   ```bash
-   claude --plugin-dir ./
-   ```
-
-## Documentation
-
-See [docs/research/PLUGINS_AND_SKILLS.md](docs/research/PLUGINS_AND_SKILLS.md) for detailed documentation on creating plugins and skills.
+Instructions for the agent...
+```
 
 ## License
 
