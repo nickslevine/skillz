@@ -1,5 +1,4 @@
 ---
-name: implement
 description: Execute an implementation plan from start to finish
 argument-hint: "<plan-path.md> [--map]"
 ---

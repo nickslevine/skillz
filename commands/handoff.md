@@ -1,5 +1,4 @@
 ---
-name: handoff
 description: Create a handoff document capturing context for the next session
 argument-hint: "[short-slug] or [focus guidance]"
 ---

@@ -1,5 +1,4 @@
 ---
-name: resume
 description: Resume work from a handoff document
 argument-hint: "[handoff-path.md]"
 ---

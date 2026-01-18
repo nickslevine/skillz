@@ -1,5 +1,4 @@
 ---
-name: generate-spec
 description: Interview user to create a feature specification and implementation plans
 argument-hint: "<feature description> or <spec-file.md>"
 ---

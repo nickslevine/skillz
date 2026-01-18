@@ -1,5 +1,4 @@
 ---
-name: commit
 description: Commit and push all changes with conventional commit messages
 argument-hint: "[--map] [message guidance]"
 ---
