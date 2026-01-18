@@ -7,6 +7,8 @@ allowed-tools:
   - Write
   - Edit
   - Glob
+  - Grep
+  - Task
   - AskUserQuestion
 ---
 
@@ -15,6 +17,15 @@ allowed-tools:
 Commit and push all changes from the current unit of work with a well-crafted commit message.
 
 ## Process
+
+### Step 0: Update Code Maps (if `--map` flag present)
+
+If `$ARGUMENTS` contains `--map`:
+
+1. Invoke the `/map` skill in default mode (no arguments)
+2. This updates MAP.md files for all folders containing changed files
+3. The updated MAP.md files will be included in this commit
+4. Continue to Step 1 after mapping completes
 
 ### Step 1: Check for Files to Gitignore
 
@@ -173,9 +184,16 @@ If push fails due to remote changes, inform the user rather than force pushing.
 
 Optional: `$ARGUMENTS` can provide guidance on the commit scope or message focus.
 
+**Flags:**
+| Flag | Effect |
+|------|--------|
+| `--map` | Run `/map` first to update MAP.md files for changed code |
+
 **Examples:**
 - `/commit` - Auto-detect everything
+- `/commit --map` - Update code maps, then commit everything
 - `/commit auth changes only` - Focus on auth-related files
+- `/commit --map refactored auth` - Update maps and commit with context
 - `/commit WIP save point` - Use a WIP-style message
 
 ## Output

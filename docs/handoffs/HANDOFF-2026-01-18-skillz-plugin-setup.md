@@ -37,7 +37,7 @@ Set up a Claude Code plugin called "skillz" with custom agent skills for workflo
 | Path | Purpose |
 |------|---------|
 | `.claude-plugin/plugin.json` | Plugin manifest (name, version, description) |
-| `skills/plan-from-spec/SKILL.md` | Skill for in-depth spec interviews |
+| `skills/generate-spec/SKILL.md` | Skill for creating specs and implementation plans |
 | `skills/handoff/SKILL.md` | Skill for creating handoff documents |
 | `skills/resume/SKILL.md` | Skill for resuming from handoff documents |
 | `skills/commit/SKILL.md` | Skill for git commit workflow |

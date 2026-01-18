@@ -24,7 +24,7 @@ claude --plugin-dir /path/to/skillz
 
 | Skill | Description |
 |-------|-------------|
-| `plan-from-spec` | Interview the user in-depth about a spec document to flesh out all details, edge cases, and implementation concerns |
+| `generate-spec` | Interview user to create a complete spec (`docs/specs/`) and implementation plans (`docs/plans/`) |
 | `handoff` | Create a handoff document when running out of context, capturing everything the next agent needs to continue |
 | `resume` | Resume work from a handoff document, restoring context and continuing where the previous session left off |
 | `commit` | Commit and push all changes - handles gitignore, staging, conventional commit messages, and push |
