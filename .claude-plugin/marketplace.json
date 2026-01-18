@@ -1,0 +1,13 @@
+{
+  "name": "skillz",
+  "description": "Custom skills for Claude Code - structured feature development with continuous improvement",
+  "version": "0.1.0",
+  "author": {
+    "name": "nlevine",
+    "github": "nickslevine"
+  },
+  "repository": "https://github.com/nickslevine/skillz",
+  "plugin": {
+    "path": "."
+  }
+}
