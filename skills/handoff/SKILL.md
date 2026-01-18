@@ -72,7 +72,38 @@ Review the current session to collect:
 
 **If guidance was provided:** Pay special attention to the area the user highlighted. Provide extra detail, context, and learnings for that specific topic.
 
-### Step 5: Write the Handoff Document
+### Step 5: Reflect and Capture Learnings
+
+Before writing the handoff, reflect on the session and capture learnings to `docs/LEARNINGS.md`:
+
+**Ask yourself:**
+- What gotchas or pitfalls did I encounter?
+- What patterns or approaches worked well?
+- Did I repeat any manual work that could be automated?
+- Was there a multi-step process that could become a skill?
+- Was there missing documentation that caused friction?
+
+**For each significant learning, append to `docs/LEARNINGS.md`:**
+
+```markdown
+## [YYYY-MM-DD] Category: Brief Title
+
+**Context:** [What you were working on]
+**Plan:** [Link to plan if applicable]
+
+**Learning:**
+[Description of the insight]
+
+**Actionable:** [yes/no]
+**Action type:** [skill-opportunity | script-opportunity | docs-update | pattern | gotcha]
+**Suggested action:** [If actionable, what should be done]
+
+---
+```
+
+This builds the knowledge base for `/self-improve` to act on later.
+
+### Step 6: Write the Handoff Document
 
 Write to `./docs/handoffs/[filename]` using the template below.
 

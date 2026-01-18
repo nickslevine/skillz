@@ -135,7 +135,8 @@ Work through tasks in order. For each task:
 
 5. **Capture learnings**
    - If you discover gotchas, edge cases, or important notes
-   - Append them to the plan's `## Notes` section
+   - Append them to `docs/LEARNINGS.md` (see Learnings Format below)
+   - Also note in the plan's `## Notes` section for immediate context
 
 6. **Commit at logical points**
    - After completing a coherent chunk of work
@@ -253,6 +254,56 @@ Agent:
 6. All tasks complete
 7. Updates plan status to `completed`
 8. Reports summary
+
+## Learnings Format
+
+Append learnings to `docs/LEARNINGS.md`. Create the file if it doesn't exist.
+
+**Format for each learning entry:**
+
+```markdown
+## [YYYY-MM-DD] Category: Brief Title
+
+**Context:** [What you were working on]
+**Plan:** [Link to plan if applicable]
+
+**Learning:**
+[Description of the insight, gotcha, or pattern discovered]
+
+**Actionable:** [yes/no]
+**Action type:** [skill-opportunity | script-opportunity | docs-update | pattern | gotcha]
+**Suggested action:** [If actionable, what should be done]
+
+---
+```
+
+**Categories:**
+| Category | When to use |
+|----------|-------------|
+| `Gotcha` | Trap or pitfall to avoid |
+| `Pattern` | Reusable approach discovered |
+| `Skill Opportunity` | Repeated multi-step process that could be a skill |
+| `Script Opportunity` | Manual work that could be automated |
+| `Docs Gap` | Missing documentation that caused friction |
+
+**Example entry:**
+
+```markdown
+## [2026-01-18] Gotcha: API returns null not undefined
+
+**Context:** Implementing user fetch in auth service
+**Plan:** [auth-db-schema](plans/user-auth-oauth-db-schema.md)
+
+**Learning:**
+The user API returns `null` for missing optional fields, not `undefined`.
+This breaks our standard `user?.email` pattern. Need explicit null checks.
+
+**Actionable:** yes
+**Action type:** docs-update
+**Suggested action:** Add to CLAUDE.md API conventions section
+
+---
+```
 
 ## Plan File Format Reference
 
