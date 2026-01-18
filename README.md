@@ -2,13 +2,28 @@
 
 A Claude Code plugin for structured feature development with continuous improvement.
 
-## Installation
+## Quick Start
 
 ```bash
-# From GitHub
+# 1. Add the plugin (run in Claude Code)
 /plugin marketplace add nickslevine/skillz
 
-# Local development
+# 2. Restart Claude Code to load the plugin
+
+# 3. Start using skills
+/generate-spec my new feature
+```
+
+## Installation
+
+**From GitHub (recommended):**
+```bash
+/plugin marketplace add nickslevine/skillz
+```
+Then restart Claude Code.
+
+**Local development:**
+```bash
 claude --plugin-dir /path/to/skillz
 ```
 
