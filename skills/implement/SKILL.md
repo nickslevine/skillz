@@ -81,6 +81,17 @@ If the `context7` skill/tool is available, use it to fetch documentation for ext
 
 This provides up-to-date documentation without relying on training data.
 
+**Frontend and UI work:**
+
+If the `frontend-design` skill is available, use it for any frontend or interface tasks:
+
+- Use frontend-design when creating UI components
+- Use frontend-design when building pages or layouts
+- Use frontend-design when implementing user-facing features
+- Use frontend-design for styling and visual design work
+
+This ensures high-quality, production-grade frontend code that avoids generic patterns.
+
 ### Step 3: Discover Project Checks
 
 Discover what validation is available in this project. Check for:
