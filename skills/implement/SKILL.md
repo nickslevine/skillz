@@ -43,7 +43,35 @@ Execute an implementation plan, working through tasks systematically until compl
    - If blocked: warn user and ask whether to proceed anyway
 4. Read the linked spec (from the `Spec:` field) for context
 
-### Step 2: Discover Project Checks
+### Step 2: Explore Codebase via Code Maps
+
+Use `MAP.md` files for efficient codebase exploration. This minimizes context usage and speeds up navigation.
+
+**Exploration strategy:**
+
+1. **Start at the root** - Read the top-level `MAP.md` (or `src/MAP.md`) to understand project structure
+2. **Drill down as needed** - Follow the hierarchy into relevant folders
+3. **Read files only when necessary** - MAP.md tells you what's in each file; only read the actual file when you need implementation details
+
+**When exploring:**
+
+| Need | Action |
+|------|--------|
+| Understand folder structure | Read `MAP.md` at that level |
+| Find where something lives | Check MAP.md folder descriptions |
+| Understand a file's exports | Check MAP.md file entry (exports, types) |
+| See actual implementation | Read the source file |
+
+**If MAP.md files don't exist:**
+- Navigate manually (Glob, Grep, Read)
+- Consider running `/map` on relevant folders to create them for future agents
+
+**Benefits:**
+- Lower context usage (MAP.md is much smaller than reading all files)
+- Faster orientation (hierarchical overview vs. file-by-file exploration)
+- Better decisions (understand existing patterns before writing code)
+
+### Step 3: Discover Project Checks
 
 Discover what validation is available in this project. Check for:
 
@@ -61,7 +89,7 @@ Discover what validation is available in this project. Check for:
 
 Store discovered checks for use before commits. Note: not all projects have all checks - only run what exists.
 
-### Step 3: Implement Tasks
+### Step 4: Implement Tasks
 
 Work through tasks in order. For each task:
 
@@ -70,9 +98,10 @@ Work through tasks in order. For each task:
    - Your TodoWrite list
 
 2. **Implement the task**
+   - Use MAP.md files to navigate and understand existing code
    - Write code, create files, make changes
    - Follow the spec for context and requirements
-   - Use good judgment on implementation details
+   - Match existing patterns and conventions found in the codebase
 
 3. **Handle unexpected work**
    - If new tasks arise during implementation, ADD them to the plan file
@@ -92,7 +121,7 @@ Work through tasks in order. For each task:
    - Before moving to a different area/component
    - When tests pass for a meaningful unit
 
-### Step 4: Pre-Commit Validation
+### Step 5: Pre-Commit Validation
 
 Before each commit:
 
@@ -109,7 +138,7 @@ Before each commit:
 3. **If checks pass:**
    - Invoke `/commit` (or `/commit --map` if `--map` flag was passed)
 
-### Step 5: Update Plan Metadata
+### Step 6: Update Plan Metadata
 
 Keep the plan file updated:
 
@@ -121,7 +150,7 @@ Keep the plan file updated:
 
 Update `## Files to Create/Modify` if you touched files not originally listed.
 
-### Step 6: Monitor Context Usage
+### Step 7: Monitor Context Usage
 
 **At ~90% context usage:**
 1. Stop implementation at the current logical point
@@ -191,17 +220,18 @@ When implementation completes (or stops), report:
 Agent:
 1. Reads plan, updates status to `in_progress`
 2. Reads linked spec for context
-3. Discovers project has `npm test`, `npm run lint`, TypeScript
-4. Works through tasks:
+3. Reads root MAP.md to understand project structure
+4. Discovers project has `npm test`, `npm run lint`, TypeScript
+5. Works through tasks:
    - Creates migration file ✓
    - Creates User model ✓
    - Creates Session model ✓
    - Runs lint, typecheck, tests - all pass
    - Commits: "feat(auth): add user and session database schema"
    - Continues with remaining tasks...
-5. All tasks complete
-6. Updates plan status to `completed`
-7. Reports summary
+6. All tasks complete
+7. Updates plan status to `completed`
+8. Reports summary
 
 ## Plan File Format Reference
 
