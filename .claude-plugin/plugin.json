@@ -1,0 +1,8 @@
+{
+  "name": "skillz",
+  "description": "Custom skills for Claude Code",
+  "version": "0.1.0",
+  "author": {
+    "name": "nlevine"
+  }
+}
