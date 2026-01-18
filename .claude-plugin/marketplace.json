@@ -1,15 +1,21 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "nickslevine-skillz",
+  "version": "0.1.0",
+  "description": "Structured feature development with continuous improvement",
   "owner": {
-    "name": "nlevine",
-    "github": "nickslevine"
+    "name": "nlevine"
   },
   "plugins": [
     {
       "name": "skillz",
       "description": "Custom skills for Claude Code - structured feature development with continuous improvement",
       "version": "0.1.0",
-      "source": "."
+      "author": {
+        "name": "nlevine"
+      },
+      "source": "./",
+      "category": "development"
     }
   ]
 }
