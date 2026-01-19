@@ -7,6 +7,7 @@ allowed-tools:
   - Glob
   - Bash
   - AskUserQuestion
+  - Task
 ---
 
 # Handoff

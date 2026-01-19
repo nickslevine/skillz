@@ -6,6 +6,7 @@ allowed-tools:
   - Glob
   - Bash
   - TodoWrite
+  - Task
 ---
 
 # Resume

@@ -8,6 +8,7 @@ allowed-tools:
   - Glob
   - Bash
   - AskUserQuestion
+  - Task
 ---
 
 # Generate Spec
@@ -51,9 +52,65 @@ Examine `$ARGUMENTS`:
     - Example: `"User authentication with OAuth"` → `user-auth-oauth`
   - Ensure `docs/specs/` directory exists
 
-### Step 2: Conduct In-Depth Interview
+### Step 2: Explore the Codebase
+
+**MANDATORY**: Before conducting the interview, you MUST use the Task tool to spawn subagents that explore the codebase. This gives you essential context to ask informed, specific questions.
+
+**Spawn these exploration agents in parallel:**
+
+1. **Architecture Explorer** - Understand the overall structure:
+   ```
+   Task(subagent_type="Explore", prompt="Analyze the codebase architecture for context on implementing [FEATURE]. Find:
+   - Project structure and organization patterns
+   - Key directories and their purposes
+   - Technology stack (frameworks, libraries, build tools)
+   - Existing patterns for similar features
+   Return a concise summary of architectural context relevant to this feature.")
+   ```
+
+2. **Related Code Explorer** - Find existing related implementations:
+   ```
+   Task(subagent_type="Explore", prompt="Search for code related to [FEATURE]. Find:
+   - Existing implementations of similar functionality
+   - Related data models, APIs, or components
+   - Integration points where this feature would connect
+   - Patterns and conventions used in similar areas
+   Return specific file paths and code patterns that are relevant.")
+   ```
+
+3. **Convention Explorer** - Understand project conventions:
+   ```
+   Task(subagent_type="Explore", prompt="Identify project conventions relevant to [FEATURE]. Find:
+   - Naming conventions for files, functions, components
+   - Testing patterns and test file locations
+   - Error handling approaches
+   - Documentation standards
+   Return a summary of conventions to follow.")
+   ```
+
+**Why this matters:**
+- Your interview questions will be grounded in the actual codebase
+- You can ask "I see you have X pattern, should we follow it here?"
+- You'll identify integration points and potential conflicts early
+- The spec will reference actual code paths, not hypotheticals
+
+**After exploration, synthesize findings:**
+- Note patterns the new feature should follow
+- Identify files/modules that will need modification
+- Spot potential conflicts or dependencies
+- Prepare codebase-aware interview questions
+
+### Step 3: Conduct In-Depth Interview
 
 Interview the user thoroughly using the AskUserQuestion tool. Your goal is to uncover every detail, edge case, and consideration needed for both the spec AND the implementation plans.
+
+**Leverage Your Exploration Findings:**
+
+Use what you learned from the codebase exploration to ask better questions:
+- "I found [existing pattern] in the codebase - should we follow the same approach?"
+- "There's already [related component] at [path] - how should this integrate?"
+- "The project uses [convention] - any reason to deviate for this feature?"
+- Reference specific files and patterns you discovered
 
 **Interview Guidelines:**
 
@@ -117,7 +174,7 @@ Interview the user thoroughly using the AskUserQuestion tool. Your goal is to un
 - Continue until you've covered all dimensions thoroughly
 - Let the user know when you're moving to a new topic area
 
-### Step 3: Write the Specification
+### Step 4: Write the Specification
 
 Write the complete specification to `docs/specs/<feature-slug>.md`:
 
@@ -168,7 +225,14 @@ Brief description of what this feature does and why.
 [Unresolved items for future discussion]
 ```
 
-### Step 4: Create Implementation Plans
+### Step 5: Create Implementation Plans
+
+**IMPORTANT: Plans go in `docs/plans/`, NOT `docs/specs/`**
+
+First, ensure the plans directory exists:
+```bash
+mkdir -p docs/plans
+```
 
 Break the implementation into independent plans. Each plan should be:
 
@@ -186,6 +250,8 @@ Break the implementation into independent plans. Each plan should be:
 
 **Plan format** (`docs/plans/<feature-slug>-<plan-slug>.md`):
 
+> **Task format rule:** Tasks MUST use markdown checkbox lists (`- [ ] Task`), NOT headings (`## Task 1:`). This enables tracking completion status.
+
 ```markdown
 # Plan: [Plan Name]
 
@@ -201,6 +267,7 @@ Break the implementation into independent plans. Each plan should be:
 Brief context - what this plan accomplishes and why it's a coherent unit.
 
 ## Tasks
+<!-- REQUIRED: Use markdown checkbox format. Do NOT use headings like "## Task 1:" -->
 - [ ] First task with enough detail to execute
 - [ ] Second task
 - [ ] Third task
@@ -224,13 +291,24 @@ Implementation notes, gotchas, decisions, or context for the agent.
 | `Blocked by: X` | Cannot start until X is complete (hard dependency) |
 | *(no dependency)* | Fully independent, start anytime |
 
-### Step 5: Report Output
+### Step 6: Report Output
 
 After completing, report:
 1. Spec file path
 2. List of plan files created
 3. Dependency graph (if any dependencies exist)
 4. Any open questions that surfaced
+5. **Implementation commands** - For each plan file, print the command to implement it:
+
+```
+To implement these plans, run:
+
+/skillz:implement ./docs/plans/<feature-slug>-<plan1>.md
+/skillz:implement ./docs/plans/<feature-slug>-<plan2>.md
+...
+```
+
+**Note:** Print the implement command for PLAN files (in `docs/plans/`), NOT the spec file.
 
 ## Example Interview Questions
 
