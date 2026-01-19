@@ -225,7 +225,11 @@ Brief description of what this feature does and why.
 [Unresolved items for future discussion]
 ```
 
+**⚠️ DO NOT STOP HERE** - Writing the spec is only half the job. You MUST proceed to Step 5 to create implementation plans.
+
 ### Step 5: Create Implementation Plans
+
+**MANDATORY**: You MUST create implementation plans. The spec is incomplete without them. Do NOT stop after writing the spec.
 
 **IMPORTANT: Plans go in `docs/plans/`, NOT `docs/specs/`**
 
