@@ -1,6 +1,6 @@
 ---
 name: map
-description: Create or update hierarchical MAP.md files for codebase exploration. Use to document folder structure, file purposes, exports, and types. Helps agents efficiently navigate unfamiliar code.
+description: Create or update hierarchical MAP.md files for codebase navigation. Documents folder structure, file purposes, exports, and types. Use when user says "map", "document codebase", "create map", or before committing to update code maps.
 allowed-tools:
   - Bash
   - Read

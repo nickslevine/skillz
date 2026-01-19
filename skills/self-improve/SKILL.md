@@ -1,6 +1,6 @@
 ---
 name: self-improve
-description: Review accumulated learnings and take actions to improve the agent system. Creates new skills, scripts, or documentation based on patterns discovered during work.
+description: Review accumulated learnings in docs/LEARNINGS.md and take actions to improve the system. Creates new skills, scripts, or documentation based on patterns discovered. Use when user says "self-improve", "review learnings", "create skill", or periodically after completing work.
 allowed-tools:
   - Bash
   - Read

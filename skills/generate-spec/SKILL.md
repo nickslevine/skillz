@@ -1,6 +1,6 @@
 ---
 name: generate-spec
-description: Interview the user in-depth about a feature to create a complete specification and implementation plans. Use when the user wants to design a feature, write a spec, or plan an implementation thoroughly.
+description: Interview the user to create a complete feature specification and break it into implementation plans. Use when user wants to design a feature, write a spec, plan implementation, or says "spec", "design", "plan feature", or "new feature".
 allowed-tools:
   - Read
   - Write

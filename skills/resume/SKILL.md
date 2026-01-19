@@ -1,6 +1,6 @@
 ---
 name: resume
-description: Resume work from a handoff document. Reads the handoff file and continues where the previous agent left off. Use when starting a new session to continue previous work.
+description: Resume work from a handoff document created by a previous session. Reads the handoff, internalizes context, sets up todo list, and continues work. Use when user says "resume", "continue", "pick up where we left off", or provides a handoff file path.
 allowed-tools:
   - Read
   - Glob

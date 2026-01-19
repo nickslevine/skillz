@@ -1,5 +1,5 @@
 ---
-description: Review learnings and create skills, scripts, or docs to improve the system
+description: Review accumulated learnings and take actions to improve the agent system
 argument-hint: "[--dry-run] [skills|scripts|docs]"
 ---
 

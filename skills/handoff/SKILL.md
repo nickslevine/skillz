@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Create a handoff document when running out of context or ending a session. Captures all necessary context for the next agent to continue the work seamlessly.
+description: Create a handoff document when running out of context, ending a session, or saving work for later. Use when context window is filling up, handing off to another agent, or user says "handoff", "save context", or "wrap up".
 allowed-tools:
   - Read
   - Write
@@ -58,18 +58,27 @@ HANDOFF-YYYY-MM-DD-short-description.md
 
 Example: `HANDOFF-2026-01-18-auth-refactor.md`
 
-### Step 3: Check for Existing File
+### Step 3: Ensure Directory Exists
 
-Before writing, check if the file already exists in `./docs/handoffs/`. If it does, append a number (e.g., `-2`, `-3`) to make it unique.
+Create the `./docs/handoffs/` directory if it doesn't exist:
+```bash
+mkdir -p ./docs/handoffs
+```
 
-### Step 4: Gather Context
+Then check if your generated filename already exists. If it does, append a number (e.g., `-2`, `-3`) to make it unique.
 
-Review the current session to collect:
+**Important:** Do NOT search for or read existing handoff documents. Just check if your specific filename exists.
 
-1. **Source documents** - Any specs, plans, or docs being worked from
-2. **Files touched** - Files read, created, or modified
-3. **Current todo state** - If a todo list exists, capture it
-4. **Key learnings** - Insights that save the next agent time
+### Step 4: Gather Context from This Session
+
+Review the **current conversation** (not filesystem searches) to collect:
+
+1. **Source documents** - Any specs, plans, or docs mentioned or used in this session
+2. **Files touched** - Files you read, created, or modified during this session
+3. **Current todo state** - If a todo list exists in this session, capture it
+4. **Key learnings** - Insights discovered during this session
+
+**Do NOT search the codebase for context.** Everything you need is in the current conversation.
 
 **If guidance was provided:** Pay special attention to the area the user highlighted. Provide extra detail, context, and learnings for that specific topic.
 

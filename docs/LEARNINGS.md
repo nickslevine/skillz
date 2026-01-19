@@ -157,3 +157,65 @@ The `Task` tool was not included in the skill's `allowed-tools` list. Without it
 
 ### Key Insight
 Adding a tool to `allowed-tools` gives the model the *capability*, but explicit instructions in the skill prompt drive *usage*. For reliable subagent exploration, you need both.
+
+## Command-Skill Architecture: Skills Are Auto-Discovered
+
+### Problem
+When running `/skillz:handoff`, the agent said "The skill file doesn't exist in this repo" and searched aimlessly instead of creating a handoff document.
+
+### Initial Wrong Assumption
+We initially thought commands needed to embed full skill content because "the agent can't find skill files." This led us to duplicate all skill content into command files—which is wrong.
+
+### Correct Understanding (from Claude Code docs)
+
+**Skills and Commands are separate mechanisms:**
+
+| Feature | Skills | Commands (Slash) |
+|---------|--------|------------------|
+| **Trigger** | Claude auto-discovers based on description | User explicitly types `/command` |
+| **Location** | `skills/*/SKILL.md` | `commands/*.md` |
+| **Discovery** | Auto-loaded when context matches description | Listed in slash command menu |
+| **Purpose** | Knowledge Claude should know about | Reusable prompts/workflows |
+
+**How skill discovery works:**
+1. At startup, Claude loads only skill **name and description** (fast startup)
+2. When a request matches a skill's description, Claude asks permission to use it
+3. Only then does the full `SKILL.md` content load
+
+**Commands should be thin dispatchers:**
+```markdown
+---
+description: Create a handoff document capturing context for the next session
+argument-hint: "[short-slug] or [focus guidance]"
+---
+
+Invoke the skillz:handoff skill and follow it exactly as presented to you
+```
+
+The skill in `skills/handoff/SKILL.md` gets auto-discovered and loaded when the command references it.
+
+### Root Cause of Original Problem
+The skill wasn't being discovered, likely due to:
+1. Plugin not properly installed (local vs remote installation issue)
+2. Skill description not matching context well enough
+3. Some other discovery issue
+
+The fix is NOT to embed content, but to:
+1. Ensure plugin is properly installed from remote
+2. Write good skill descriptions with trigger keywords
+3. Keep commands thin and skills comprehensive
+
+### Key Insight
+**Don't duplicate content between commands and skills.** Commands dispatch to skills. Skills contain all the logic. The skill's `description` field is critical for auto-discovery—include what the skill does AND trigger keywords for when Claude should use it.
+
+### Description Best Practice
+```yaml
+description: Create a handoff document when running out of context, ending a session,
+or saving work for later. Use when context window is filling up, handing off to another
+agent, or user says "handoff", "save context", or "wrap up".
+```
+
+Include:
+1. What it does (capabilities)
+2. When to use it (trigger conditions)
+3. Trigger keywords users might say

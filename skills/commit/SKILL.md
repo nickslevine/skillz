@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Commit and push all changes from the current unit of work. Handles gitignore, staging, commit message, and push. Use when work is ready to be committed.
+description: Commit and push all changes with conventional commit messages. Handles gitignore patterns, secret detection, large file checks, staging, and push. Use when user says "commit", "push", "save changes", or work is ready to be committed.
 allowed-tools:
   - Bash
   - Read

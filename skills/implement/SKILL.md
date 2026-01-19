@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Execute an implementation plan from start to finish. Takes a plan file, implements tasks in order, runs tests/lints, and commits at logical points. Use when ready to implement a plan.
+description: Execute an implementation plan from start to finish. Takes a plan file, works through tasks, runs tests/lints, and commits at logical points. Use when user says "implement", "execute plan", "build this", or has a plan file to work through.
 allowed-tools:
   - Bash
   - Read
